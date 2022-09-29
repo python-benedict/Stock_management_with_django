@@ -24,3 +24,20 @@ def detailed_page(request, id):
         'article_obj':article_obj
     }
     return render(request, 'detailed_page.html', context=context)
+
+# SEARCH PAGE VIEW
+
+def search_view(request):
+    query_dict = request.GET   # This is a dictionary
+    #query = query_dict.get('q')     #<input type="text" name="q"/>
+    try:
+        query = int(query_dict.get('q'))
+    except:
+        query = None
+    article_obj = None
+    if query is not None:
+        article_obj = Articles.objects.get(id=query)
+    context = {
+        'object': article_obj
+    }
+    return render(request, 'search_view.html', context=context)
