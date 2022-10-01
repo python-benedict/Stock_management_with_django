@@ -41,3 +41,13 @@ def search_view(request):
         'object': article_obj
     }
     return render(request, 'search_view.html', context=context)
+
+def create_article(request):
+    context = {}
+    if request.method == "POST":
+        title = request.POST.get("title")
+        content = request.POST.get("content")
+        article_obj = Articles.objects.create(title=title, content=content)
+        context['object']=article_obj
+        context['created']=True
+    return render(request, 'create.html', context=context)
